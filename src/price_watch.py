@@ -49,8 +49,8 @@ def sleep_until(end_time):
             time.sleep(SLEEP_UNIT)
 
 
-def exec_action(config, driver, wait, item):
-    for action in item["action"]:
+def exec_action(config, driver, wait, action_list):
+    for action in action_list:
         if action["type"] == "input":
             if len(driver.find_elements(By.XPATH, action["xpath"])) == 0:
                 return
@@ -126,17 +126,32 @@ def process_data(config, item, last):
                     )
                 )
                 notify_slack.send(config, item)
+            else:
+                logging.info(
+                    "{name}: {new_price:,}{price_unit} ({stock}).".format(
+                        name=item["name"],
+                        new_price=item["price"],
+                        price_unit=item["price_unit"],
+                        stock="out of stock" if item["stock"] == 0 else "in stock",
+                    )
+                )
+
     return True
 
 
 def check_item(config, driver, item):
     wait = WebDriverWait(driver, TIMEOUT_SEC)
 
+    if "preload" in item:
+        driver.get(item["preload"]["url"])
+        time.sleep(2)
+        exec_action(config, driver, wait, item["preload"]["action"])
+
     driver.get(item["url"])
     time.sleep(2)
 
     if "action" in item:
-        exec_action(config, driver, wait, item)
+        exec_action(config, driver, wait, item["action"])
 
     if len(driver.find_elements(By.XPATH, item["price_xpath"])) == 0:
         logging.warning("{name}: price not found.".format(name=item["name"]))
@@ -172,6 +187,20 @@ def do_work(config, driver, item_list):
             pass
 
 
+def load_item_list():
+    item_list = []
+    target_config = load_config(CONFIG_TARGET_PATH)
+
+    store_map = {}
+    for store in target_config["store_list"]:
+        store_map[store["name"]] = store
+
+    for item in target_config["item_list"]:
+        item_list.append(dict(store_map[item["store"]], **item))
+
+    return item_list
+
+
 os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
 
 logger.init("bot.price_watch")
@@ -184,6 +213,6 @@ driver = create_driver()
 while True:
     start_time = time.time()
 
-    do_work(config, driver, load_config(CONFIG_TARGET_PATH))
+    do_work(config, driver, load_item_list())
 
     sleep_until(start_time + config["interval"])
