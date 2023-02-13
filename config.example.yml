@@ -1,0 +1,9 @@
+interval: 1800 # 監視周期
+
+slack:
+  channel: "#price" # Bot が投稿するチャンネル
+  bot_token: xoxb-123456789012-1234567890123-XXXXXXXXXXXXXXXXXXXXXXXX # Bot のトークン
+
+liveness:
+  file: /dev/shm/healthz
+  interval: 300
