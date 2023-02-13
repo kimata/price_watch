@@ -83,9 +83,6 @@ def exec_action(config, driver, wait, action_list):
 
 
 def process_data(config, item, last):
-    if "price_unit" not in item:
-        item["price_unit"] = "円"
-
     if (
         (last is None)
         or (item["price"] != last["price"])
@@ -205,7 +202,12 @@ def load_item_list():
         store_map[store["name"]] = store
 
     for item in target_config["item_list"]:
-        item_list.append(dict(store_map[item["store"]], **item))
+        merged_item = dict(store_map[item["store"]], **item)
+
+        if "price_unit" not in merged_item:
+            merged_item["price_unit"] = "円"
+
+        item_list.append(merged_item)
 
     return item_list
 
