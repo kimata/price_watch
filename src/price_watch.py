@@ -68,6 +68,7 @@ def exec_action(config, driver, wait, item):
             captcha.resolve_mp3(config, driver, wait)
             time.sleep(2)
         elif action["type"] == "sixdigit":
+            # NOTE: これは今のところ Ubiquiti Store USA 専用
             logging.debug("action sixdigit")
             digit_code = input(
                 "{domain} app code: ".format(
