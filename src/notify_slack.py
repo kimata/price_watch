@@ -38,11 +38,12 @@ def send(config, item):
 
     message = MESSAGE_TMPL.format(
         message=json.dumps(
-            ":tada: {old_price:,} ⇒ *{price:,}{price_unit}* \n<{url}|詳細>".format(
+            ":tada: {old_price:,} ⇒ *{price:,}{price_unit}*\n{stock}\n<{url}|詳細>".format(
                 old_price=item["old_price"],
                 price=item["price"],
                 price_unit=item["price_unit"],
                 url=item["url"],
+                stock="out of stock" if item["stock"] == 0 else "in stock",
             )
         ),
         name=json.dumps(item["name"]),
