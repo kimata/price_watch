@@ -62,7 +62,7 @@ def exec_action(config, driver, wait, item):
                 return
             logging.debug("action click")
             driver.find_element(By.XPATH, action["xpath"]).click()
-            time.sleep(2)
+            time.sleep(5)
         elif action["type"] == "captcha":
             logging.debug("action captcha")
             captcha.resolve_mp3(config, driver, wait)
