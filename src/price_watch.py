@@ -135,6 +135,15 @@ def process_data(config, item, last):
                         stock="out of stock" if item["stock"] == 0 else "in stock",
                     )
                 )
+        else:
+            logging.info(
+                "{name}: {new_price:,}{price_unit} ({stock}).".format(
+                    name=item["name"],
+                    new_price=item["price"],
+                    price_unit=item["price_unit"],
+                    stock="out of stock" if item["stock"] == 0 else "in stock",
+                )
+            )
 
     return True
 
