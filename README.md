@@ -5,6 +5,7 @@
 
 - Amazon.co.jp
 - ヨドバシ.com
+- Yahoo ショッピング
 - Ubiquiti Store USA
 - Lenovo
 
