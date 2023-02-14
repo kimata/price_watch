@@ -19,7 +19,6 @@ store_list:
       - type: sixdigit
     unavailable_xpath: '//span[contains(text(), "Sold Out")]'
 
-
   - name: lenovo.com/jp
     preload:
       url: https://www.lenovo.com/jp/edu/ja/login/jpeducation/?groupId=jpeducation
