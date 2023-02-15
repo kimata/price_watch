@@ -38,6 +38,7 @@ def sleep_until(end_time):
     logging.info("sleep {sleep:,} sec...".format(sleep=int(sleep_remain)))
 
     while True:
+        # NOTE: Livenss がタイムアウトしないよう，定期的に更新する
         pathlib.Path(config["liveness"]["file"]).touch()
 
         sleep_remain = end_time - time.time()
