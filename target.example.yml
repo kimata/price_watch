@@ -1,6 +1,7 @@
 store_list:
   - name: amazon.co.jp
     price_xpath: '//span[@class="a-price-whole"]'
+    unavailable_xpath: '//span[contains(@class, "a-color-price") and contains(text(), "在庫切れ")]'
 
   - name: yodobashi.com
     price_xpath: '//span[@id="js_scl_unitPrice"]'
