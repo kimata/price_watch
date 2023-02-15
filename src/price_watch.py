@@ -85,10 +85,14 @@ def exec_action(config, driver, wait, action_list):
 def process_data(config, item, last):
     if (
         (last is None)
-        or (item["price"] != last["price"])
+        or ((item["stock"] == 1) and (item["price"] != last["price"]))
         or (item["stock"] != last["stock"])
     ):
-        # NOTE: 価格もしくは在庫状態が変化したら，記録する．
+        # NOTE: 下記いずれかの場合，履歴を記録する．
+        # - 履歴データが無い場合
+        # - 在庫がある状態で価格が変化した
+        # - 在庫状況が変化した
+        # (在庫が無い状態で価格が変化した場合は記録しない)
         history.insert(item)
 
     if last is None:
