@@ -9,6 +9,10 @@ store_list:
   - name: shopping.yahoo.co.jp
     price_xpath: '//span[@class="elPriceNumber"]'
     unavailable_xpath: '//button[contains(@class, "isDisabled")]/span[contains(text(), "在庫がありません")]'
+
+  - name: switch-science.com
+    price_xpath: '//div[contains(@class, "price__current")]/span[contains(@class, "money")]'
+    unavailable_xpath: '//span[contains(text(), "売り切れ")]'
     
   - name: store.ui.com
     price_xpath: '//div[contains(@class, "comProduct__price")]/span[1]'
@@ -75,3 +79,8 @@ item_list:
     store: yodobashi.com
     url: https://www.yodobashi.com/product/100000001002033604/
     thumb_url: https://image.yodobashi.com/product/100/000/001/002/033/604/100000001002033604_10204_004.jpg
+
+  - name: Raspberry Pi Zero 2 W
+    store: switch-science.com
+    url: https://www.switch-science.com/products/7600
+    thumb_url: https://cdn.shopify.com/s/files/1/0514/0719/2262/products/89a3a7de-8847-4f1a-94aa-e4f627190b4d_1390x1390.jpg?v=1675224998
