@@ -1,13 +1,17 @@
 # price_watch
 
 オンラインショップが掲載している価格を監視し，価格が下がった場合に Slack に通知するスクリプトです．
-下記のようなオンラインショップに対応しています．(これら以外のショップにも使えます)
 
-- Amazon.co.jp
-- ヨドバシ.com
-- Yahoo ショッピング
-- Ubiquiti Store USA
-- Lenovo
+![Slack 投稿サンプル](./img/screenshot.png "Slack 投稿サンプル]")
+
+下記のようなオンラインショップで使えることを確認しています．(これら以外のショップにも使えます)
+
+-   Amazon.co.jp
+-   ヨドバシ.com
+-   Yahoo ショッピング
+-   Switch Science
+-   Ubiquiti Store USA
+-   Lenovo
 
 ## 準備
 
