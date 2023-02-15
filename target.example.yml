@@ -29,6 +29,8 @@ store_list:
       - type: click
         xpath: '//button[@type="submit"]'
       - type: sixdigit
+      - type: click
+        xpath: '//button[contains(@title, "Close")]'
     unavailable_xpath: '//span[contains(text(), "Sold Out")]'
 
   - name: lenovo.com/jp
