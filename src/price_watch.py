@@ -93,6 +93,12 @@ def process_data(config, item, last):
         # - 在庫がある状態で価格が変化した
         # - 在庫状況が変化した
         # (在庫が無い状態で価格が変化した場合は記録しない)
+
+        if (last is not None) and (item["stock"] == 0):
+            # NOTE: 在庫がなくなった場合，価格は前回のものを採用する．
+            # (在庫がなくなった瞬間に更新された価格は記録しない)
+            item["price"] = last["price"]
+
         history.insert(item)
 
     if last is None:
