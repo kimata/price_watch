@@ -27,7 +27,7 @@ def insert(item):
     cur.execute(
         """
 INSERT INTO price_history
-(name, url, price, stock, store) values("{name}", "{url}", {price}, {stock}, {store})
+(name, url, price, stock, store) values("{name}", "{url}", {price}, {stock}, "{store}")
 """.format(
             name=item["name"],
             url=item["url"],
