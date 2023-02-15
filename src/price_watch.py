@@ -177,7 +177,7 @@ def check_item(config, driver, item):
     else:
         item["stock"] = 1
 
-    return process_data(config, item, history.last(item["name"]))
+    return process_data(config, item, history.last(item["name"], item["store"]))
 
 
 def do_work(config, driver, item_list):

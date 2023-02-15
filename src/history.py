@@ -27,25 +27,29 @@ def insert(item):
     cur.execute(
         """
 INSERT INTO price_history
-(name, url, price, stock) values("{name}", "{url}", {price}, {stock})
+(name, url, price, stock, store) values("{name}", "{url}", {price}, {stock}, {store})
 """.format(
-            name=item["name"], url=item["url"], price=item["price"], stock=item["stock"]
+            name=item["name"],
+            url=item["url"],
+            price=item["price"],
+            stock=item["stock"],
+            store=item["store"],
         )
     )
     conn.commit()
     conn.close()
 
 
-def last(name):
+def last(name, store):
     conn = connect()
     conn.row_factory = dict_factory
     cur = conn.cursor()
 
     cur.execute(
         """
-select * from price_history WHERE name="{name}" ORDER BY time DESC
+select * from price_history WHERE name="{name}" AND store="{store}" ORDER BY time DESC
 """.format(
-            name=name
+            name=name, store=store
         )
     )
 
@@ -85,6 +89,7 @@ CREATE TABLE IF NOT EXISTS price_history(
     url     TEXT NOT NULL,
     price   INTEGER NOT NULL,
     stock   INTEGER NOT NULL,
+    store   TEXT NOT NULL,
     time    TIMESTAMP DEFAULT(DATETIME('now','localtime'))
 )
 """
