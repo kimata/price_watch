@@ -51,25 +51,24 @@ def sleep_until(end_time):
 
 def exec_action(config, driver, wait, action_list):
     for action in action_list:
+        logging.debug("action: {action}.".format(action=action["type"]))
         if action["type"] == "input":
             if len(driver.find_elements(By.XPATH, action["xpath"])) == 0:
+                logging.debug("Element not found. Interrupted.")
                 return
-            logging.debug("action input")
             driver.find_element(By.XPATH, action["xpath"]).send_keys(action["value"])
             time.sleep(2)
         elif action["type"] == "click":
             if len(driver.find_elements(By.XPATH, action["xpath"])) == 0:
+                logging.debug("Element not found. Interrupted.")
                 return
-            logging.debug("action click")
             driver.find_element(By.XPATH, action["xpath"]).click()
             time.sleep(5)
         elif action["type"] == "captcha":
-            logging.debug("action captcha")
             captcha.resolve_mp3(config, driver, wait)
             time.sleep(2)
         elif action["type"] == "sixdigit":
             # NOTE: これは今のところ Ubiquiti Store USA 専用
-            logging.debug("action sixdigit")
             digit_code = input(
                 "{domain} app code: ".format(
                     domain=urllib.parse.urlparse(driver.current_url).netloc
