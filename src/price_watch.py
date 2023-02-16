@@ -31,6 +31,7 @@ DUMP_PATH = str(DATA_PATH / "debug")
 
 TIMEOUT_SEC = 4
 SLEEP_UNIT = 60
+CHECK_INTERVAL_SEC = 5
 
 
 def sleep_until(end_time):
@@ -201,6 +202,7 @@ def do_work(config, driver, item_list):
             dump_page(driver, DUMP_PATH, int(random.random() * 100))
             logging.warn("Exit.")
             pass
+        time.sleep(CHECK_INTERVAL_SEC)
 
 
 def load_item_list():
