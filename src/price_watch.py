@@ -79,9 +79,9 @@ def exec_action(config, driver, wait, action_list):
             logging.warn("Resolve captche is needed at {domain}.".format(domain=domain))
 
             dump_page(driver, DUMP_PATH, int(random.random() * 100))
-            captcha = input("{domain} captcha: ".format(domain=domain))
+            code = input("{domain} captcha: ".format(domain=domain))
 
-            driver.find_element(By.XPATH, input_xpath).send_keys(captcha)
+            driver.find_element(By.XPATH, input_xpath).send_keys(code)
             driver.find_element(By.XPATH, '//button[@type="submit"]').click()
         elif action["type"] == "sixdigit":
             # NOTE: これは今のところ Ubiquiti Store USA 専用
