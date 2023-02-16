@@ -66,9 +66,23 @@ def exec_action(config, driver, wait, action_list):
                 return
             driver.find_element(By.XPATH, action["xpath"]).click()
             time.sleep(5)
-        elif action["type"] == "captcha":
+        elif action["type"] == "recaptcha":
             captcha.resolve_mp3(config, driver, wait)
             time.sleep(2)
+        elif action["type"] == "captcha":
+            input_xpath = '//input[@id="captchacharacters"]'
+            if len(driver.find_elements(By.XPATH, input_xpath)) == 0:
+                logging.debug("Element not found. Interrupted.")
+                return
+            domain = urllib.parse.urlparse(driver.current_url).netloc
+
+            logging.warn("Resolve captche is needed at {domain}.".format(domain=domain))
+
+            dump_page(driver, DUMP_PATH, int(random.random() * 100))
+            captcha = input("{domain} captcha: ".format(domain=domain))
+
+            driver.find_element(By.XPATH, input_xpath).send_keys(captcha)
+            driver.find_element(By.XPATH, '//button[@type="submit"]').click()
         elif action["type"] == "sixdigit":
             # NOTE: これは今のところ Ubiquiti Store USA 専用
             digit_code = input(

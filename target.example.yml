@@ -1,6 +1,8 @@
 store_list:
   - name: amazon.co.jp
-    price_xpath: '//span[@class="a-price-whole"]'
+    action:
+      - type: captcha
+    price_xpath: '//span[contains(@class, "priceToPay")]//span[@class="a-price-whole"]'
     unavailable_xpath: '//span[contains(@class, "a-color-price") and contains(text(), "在庫切れ")]'
 
   - name: yodobashi.com
@@ -41,7 +43,7 @@ store_list:
         - type: input
           xpath: '//input[@class="input-passcode"]'
           value: XXXXXX # パスコード
-        - type: captcha
+        - type: recaptcha
           xpath: '//div[@class="g-recaptcha"]'
         - type: click
           xpath: '//div[@class="login-sign-in-button"]'
