@@ -76,7 +76,9 @@ def exec_action(config, driver, wait, action_list):
                 return
             domain = urllib.parse.urlparse(driver.current_url).netloc
 
-            logging.warn("Resolve captche is needed at {domain}.".format(domain=domain))
+            logging.warning(
+                "Resolve captche is needed at {domain}.".format(domain=domain)
+            )
 
             dump_page(driver, DUMP_PATH, int(random.random() * 100))
             code = input("{domain} captcha: ".format(domain=domain))
@@ -214,7 +216,7 @@ def do_work(config, driver, item_list):
             logging.error("URL: {url}".format(url=driver.current_url))
             logging.error(traceback.format_exc())
             dump_page(driver, DUMP_PATH, int(random.random() * 100))
-            logging.warn("Exit.")
+            logging.warning("Exit.")
             pass
         time.sleep(CHECK_INTERVAL_SEC)
 
