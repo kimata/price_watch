@@ -32,6 +32,26 @@ MESSAGE_TMPL = """\
 ]
 """
 
+ERROR_TMPL = """\
+[
+    {{
+        "type": "header",
+	"text": {{
+            "type": "plain_text",
+	    "text": {name},
+            "emoji": true
+        }}
+    }},
+    {{
+        "type": "section",
+        "text": {{
+            "type": "mrkdwn",
+	    "text": {message}
+	}}
+    }}
+]
+"""
+
 
 def send(config, item):
     client = WebClient(token=config["slack"]["bot_token"])
@@ -52,6 +72,25 @@ def send(config, item):
     try:
         client.chat_postMessage(
             channel=config["slack"]["channel"],
+            text=item["name"],
+            blocks=json.loads(message),
+        )
+    except SlackApiError as e:
+        logging.warning(e.response["error"])
+
+
+def error(config, item, error_msg):
+    client = WebClient(token=config["slack"]["bot_token"])
+
+    message = ERROR_TMPL.format(
+        message=json.dumps(
+            "<{url}|URL>\n{error_msg}".format(url=item["url"], error_msg=error_msg)
+        ),
+        name=json.dumps(item["name"]),
+    )
+    try:
+        client.chat_postMessage(
+            channel=config["slack"]["error_channel"],
             text=item["name"],
             blocks=json.loads(message),
         )

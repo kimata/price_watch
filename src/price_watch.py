@@ -33,6 +33,8 @@ TIMEOUT_SEC = 4
 SLEEP_UNIT = 60
 CHECK_INTERVAL_SEC = 5
 
+ERROR_NOTIFY_COUNT = 10
+
 
 def sleep_until(end_time):
     sleep_remain = end_time - time.time()
@@ -212,11 +214,16 @@ def do_work(config, driver, item_list):
         try:
             check_item(config, driver, item.copy())
             pathlib.Path(config["liveness"]["file"]).touch()
+            item["error_count"] = 0
         except:
+            item["error_count"] += 1
+            if item["error_count"] >= ERROR_NOTIFY_COUNT:
+                notify_slack.error(config, item, traceback.format_exc())
+                item["error_count"] = 0
+
             logging.error("URL: {url}".format(url=driver.current_url))
             logging.error(traceback.format_exc())
             dump_page(driver, DUMP_PATH, int(random.random() * 100))
-            logging.warning("Exit.")
             pass
         time.sleep(CHECK_INTERVAL_SEC)
 
@@ -234,6 +241,8 @@ def load_item_list():
 
         if "price_unit" not in merged_item:
             merged_item["price_unit"] = "円"
+
+        merged_item["error_count"] = 0
 
         item_list.append(merged_item)
 
