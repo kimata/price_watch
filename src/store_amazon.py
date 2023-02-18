@@ -39,7 +39,6 @@ def fetch_price(config, asin_list):
             condition=Condition.NEW,
             get_items_resource=[
                 GetItemsResource.OFFERS_SUMMARIES_LOWESTPRICE,
-                GetItemsResource.ITEMINFO_CLASSIFICATIONS,
                 GetItemsResource.IMAGES_PRIMARY_MEDIUM,
                 GetItemsResource.IMAGES_PRIMARY_SMALL,
             ],
