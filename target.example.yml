@@ -1,16 +1,15 @@
 store_list:
   - name: amazon.co.jp
-    action:
-      - type: captcha
-    price_xpath: '//span[contains(@class, "priceToPay")]//span[@class="a-price-whole"]'
-    unavailable_xpath: '//span[contains(@class, "a-color-price") and contains(text(), "在庫切れ")]'
+    check_method: amazon-paapi
 
   - name: yodobashi.com
     price_xpath: '//span[@id="js_scl_unitPrice"]'
+    thumb_xpath: '//img[@id="mainImg"]'
     unavailable_xpath: '//p[contains(text(), "販売休止中")]'
 
   - name: shopping.yahoo.co.jp
     price_xpath: '//span[@class="elPriceNumber"]'
+    thumb_xpath: '//img[@class="elPanelImage"][1]'
     unavailable_xpath: '//button[contains(@class, "isDisabled")]/span[contains(text(), "在庫がありません")]'
 
   - name: switch-science.com
@@ -19,6 +18,7 @@ store_list:
     
   - name: store.ui.com
     price_xpath: '//div[contains(@class, "comProduct__price")]/span[1]'
+    thumb_xpath: '//li[@class="flex-active-slide"][1]//img'
     price_unit: ドル
     action:
       - type: click
@@ -53,12 +53,10 @@ item_list:
   - name: Connect Display 13
     store: store.ui.com
     url: https://store.ui.com/collections/early-access/products/unifi-connect-display-13-ea
-    thumb_url: https://cdn.shopify.com/s/files/1/1439/1668/products/UC-Display13-W-002_grande.png?v=1660935898
 
   - name: BOOX Mira Pro
     store: shopping.yahoo.co.jp
     url: https://store.shopping.yahoo.co.jp/skt/boox-mirapro.html
-    thumb_url: https://item-shopping.c.yimg.jp/i/n/skt_boox-mirapro
     
   - name: ThinkPad X1 Carbon
     store: lenovo.com/jp
@@ -67,24 +65,12 @@ item_list:
 
   - name: Fractal Design North Charcoal Black TG Dark
     store: amazon.co.jp
-    url: https://www.amazon.co.jp/dp/B0BPBXPCT5
-    thumb_url: https://m.media-amazon.com/images/I/71Ju7iX3XfL._AC_SX425_.jpg
+    asin: B0BPBXPCT5
     
   - name: Fractal Design North Charcoal Black TG Dark (ヨドバシ)
     store: yodobashi.com
     url: https://www.yodobashi.com/product/100000001007535004/
-    thumb_url: https://m.media-amazon.com/images/I/71Ju7iX3XfL._AC_SX425_.jpg
   
-  - name: 山田照明 Zライト 高演色LED 肌色きれい ブラック Z-8N
-    store: amazon.co.jp
-    url: https://www.amazon.co.jp/dp/B085G48BZV
-    thumb_url: https://m.media-amazon.com/images/I/51-D0-ubppL._AC_SL1500_.jpg
-
-  - name: トラスコ中山 TRUSCO MKT-2015-BK マジックバンド結束テープ
-    store: yodobashi.com
-    url: https://www.yodobashi.com/product/100000001002033604/
-    thumb_url: https://image.yodobashi.com/product/100/000/001/002/033/604/100000001002033604_10204_004.jpg
-
   - name: Raspberry Pi Zero 2 W
     store: switch-science.com
     url: https://www.switch-science.com/products/7600
