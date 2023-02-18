@@ -15,7 +15,7 @@ store_list:
   - name: switch-science.com
     price_xpath: '//div[contains(@class, "price__current")]/span[contains(@class, "money")]'
     unavailable_xpath: '//span[contains(text(), "売り切れ")]'
-    
+
   - name: store.ui.com
     price_xpath: '//div[contains(@class, "comProduct__price")]/span[1]'
     thumb_xpath: '//li[@class="flex-active-slide"][1]//img'
@@ -37,18 +37,17 @@ store_list:
     unavailable_xpath: '//span[contains(text(), "Sold Out")]'
 
   - name: lenovo.com/jp
-    preload:
-      url: https://www.lenovo.com/jp/edu/ja/login/jpeducation/?groupId=jpeducation
-      action:
-        - type: input
-          xpath: '//input[@class="input-passcode"]'
-          value: XXXXXX # パスコード
-        - type: recaptcha
-          xpath: '//div[@class="g-recaptcha"]'
-        - type: click
-          xpath: '//div[@class="login-sign-in-button"]'
-    price_xpath: '//p[@class="present"]'
-        
+    action:
+      - type: input
+        xpath: '//input[@class="input-passcode"]'
+        value: XXXXXX # パスコード
+      - type: recaptcha
+        xpath: '//div[@class="g-recaptcha"]'
+      - type: click
+        xpath: '//div[@class="login-sign-in-button"]'
+    price_xpath: '//span[@class="final-price"]'
+    thumb_xpath: '//div[@class="image-pic"]//img[@class="srcImg"]'
+
 item_list:
   - name: Connect Display 13
     store: store.ui.com
@@ -57,20 +56,24 @@ item_list:
   - name: BOOX Mira Pro
     store: shopping.yahoo.co.jp
     url: https://store.shopping.yahoo.co.jp/skt/boox-mirapro.html
-    
+
+  - name: ThinkPad X1 Carbon (学生モデル)
+    store: lenovo.com/jp
+    price_xpath:  '//p[@class="present"]'
+    url: https://www.lenovo.com/jp/edu/ja/configurator/cto/index.html?mainCode=21CBCTO1WWJP1&groupId=jpeducation
+
   - name: ThinkPad X1 Carbon
     store: lenovo.com/jp
-    url: https://www.lenovo.com/jp/edu/ja/configurator/cto/index.html?mainCode=21CBCTO1WWJP1&groupId=jpeducation
-    thumb_url: https://p2-ofp.static.pub/ShareResource/JPResource/JP-Images/products/thinkpad-x1-carbon-gen10/thinkpad-x1-carbon-gen10-hero-725x515.png
+    url: https://www.lenovo.com/jp/ja/p/laptops/thinkpad/thinkpadx1/thinkpad-x1-carbon-gen-10-(14-inch-intel)/21cccto1wwjp4
 
   - name: Fractal Design North Charcoal Black TG Dark
     store: amazon.co.jp
     asin: B0BPBXPCT5
-    
+
   - name: Fractal Design North Charcoal Black TG Dark (ヨドバシ)
     store: yodobashi.com
     url: https://www.yodobashi.com/product/100000001007535004/
-  
+
   - name: Raspberry Pi Zero 2 W
     store: switch-science.com
     url: https://www.switch-science.com/products/7600
